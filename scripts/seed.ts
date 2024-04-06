@@ -8,8 +8,8 @@ async function main() {
       data: [
         { name: "Computer Science" },
         { name: "Music" },
-        { name: "Photography" },
         { name: "Fitness" },
+        { name: "Photography" },
         { name: "Accounting" },
         { name: "Engineering" },
         { name: "Filming" },
