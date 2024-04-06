@@ -3,8 +3,9 @@
 import * as z from "zod";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Course } from "@prisma/client";
 import { useForm } from "react-hook-form";
-import { Pencil } from "lucide-react";
+import { ImageIcon, Pencil, PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -19,23 +20,19 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
-import { Course } from "@prisma/client";
 
-interface DescriptionFormProps {
+interface ImageFormProps {
   initialData: Course;
   courseId: string;
 }
 
 const formSchema = z.object({
-  description: z.string().min(1, {
-    message: "Title is required",
+  imageUrl: z.string().min(1, {
+    message: "Image is required",
   }),
 });
 
-export const DescriptionForm = ({
-  initialData,
-  courseId,
-}: DescriptionFormProps) => {
+export const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -45,7 +42,7 @@ export const DescriptionForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      description: initialData?.description || "",
+      imageUrl: initialData?.imageUrl || "",
     },
   });
 
@@ -64,28 +61,31 @@ export const DescriptionForm = ({
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course Description
+        Course Image
         <Button onClick={toggleEdit} variant="ghost">
-          {isEditing ? (
-            <>Cancel</>
-          ) : (
+          {isEditing && <>Cancel</>}
+          {!isEditing && !initialData.imageUrl && (
+            <>
+              <PlusCircle className="h-4 w-4 mr-2" />
+              Add an image
+            </>
+          )}
+          {!isEditing && initialData.imageUrl && (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit Description
+              Edit Image
             </>
           )}
         </Button>
       </div>
-      {!isEditing && (
-        <p
-          className={cn(
-            "text-sm mt-2",
-            !initialData.description && "text-slate-500 italic"
-          )}
-        >
-          {initialData.description || "No Description"}
-        </p>
-      )}
+      {!isEditing &&
+        (!initialData.imageUrl ? (
+          <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md">
+            <ImageIcon className="h-10 w-10 text-slate-500" />
+          </div>
+        ) : (
+          <div>current image</div>
+        ))}
       {isEditing && (
         <Form {...form}>
           <form
@@ -94,7 +94,7 @@ export const DescriptionForm = ({
           >
             <FormField
               control={form.control}
-              name="description"
+              name="imageUrl"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
