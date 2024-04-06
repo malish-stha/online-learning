@@ -19,6 +19,12 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
     },
   });
 
+  const categories = await db.category.findMany({
+    orderBy: {
+      name: "asc",
+    },
+  });
+
   if (!course) {
     return redirect("/");
   }
@@ -54,6 +60,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
           </div>
           <TitleForm initialData={course} courseId={course.id} />
           <DescriptionForm initialData={course} courseId={course.id} />
+          <ImageForm initialData={course} courseId={course.id} />
           <ImageForm initialData={course} courseId={course.id} />
         </div>
       </div>
