@@ -4,6 +4,7 @@ datasource db {
 }
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 model Course {
@@ -25,6 +26,8 @@ model Course {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   
+  @@index([categoryId])
+  @@fulltext([title])
 }
 
 model Category {
@@ -43,6 +46,8 @@ model Attachment {
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+
+   @@index([courseId])
 }
 
 model Chapter {
@@ -63,6 +68,8 @@ model Chapter {
 
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+
+  @@index([courseId])
 }
 
 model MuxData {
