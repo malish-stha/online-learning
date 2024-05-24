@@ -1,0 +1,104 @@
+.certificateContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh; /* Full screen height */
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 2px solid #000;
+  border-radius: 10px;
+  background: #f7f7f7;
+  font-family: Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.header {
+  font-size: 40px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+  font-weight: bolder;
+  font-style: italic;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2.5em;
+  color: #000;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 1.5em;
+  color: #555;
+}
+
+.awardText {
+  text-align: center;
+  font-size: 1.2em;
+  margin: 20px 0;
+}
+
+.recipientName {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  text-align: center;
+  font-size: 2em;
+  margin: 10px 0;
+  color: #000;
+}
+
+.description {
+  text-align: center;
+  font-size: 1em;
+  margin: 10px 0;
+  color: #555;
+  padding: 0 20px;
+}
+
+.downloadButton {
+  position: absolute;
+  right: 20px; /* Adjust as needed */
+  bottom: 20px; /* Adjust as needed */
+}
+
+.verification {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9em;
+  color: #777;
+}
+
+.certificateContainer::before,
+.certificateContainer::after {
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: #ffc107;
+  z-index: -1;
+}
+
+.certificateContainer::before {
+  top: -50px;
+  left: -50px;
+  transform: rotate(45deg);
+}
+
+.certificateContainer::after {
+  bottom: -50px;
+  right: -50px;
+  transform: rotate(-45deg);
+}
+
+.stamp {
+  position: absolute;
+  bottom: 20px;
+}
+
+.stamp img {
+  width: 250px;
+  height: 250px;
+}
